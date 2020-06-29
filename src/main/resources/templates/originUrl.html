@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>解析立招二维码原地址</title>
+
+    <link rel="stylesheet" type="text/css" href="/VerifySystem/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/VerifySystem/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/VerifySystem/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="/VerifySystem/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/VerifySystem/css/company.css">
+    <link rel="stylesheet" type="text/css" href="/VerifySystem/css/param.css">
+    <style type="text/css">
+        .background {
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            filter: alpha(opacity=40);
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+        }
+
+        .background1 {
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            filter: alpha(opacity=40);
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+        }
+
+        .progressBar {
+            border: solid 2px #86A5AD;
+            background: white url('images/loading.gif') no-repeat 10px 10px;
+        }
+
+        .progressBar {
+            display: block;
+            width: 200px;
+            height: 50px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -74px;
+            margin-top: -14px;
+            padding: 10px 10px 10px 50px;
+            text-align: left;
+            line-height: 27px;
+            font-weight: bold;
+            position: absolute;
+            z-index: 2001;
+        }
+
+        .progressBar1 {
+            display: block;
+            width: 200px;
+            height: 50px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -74px;
+            margin-top: -14px;
+            padding: 10px 10px 10px 50px;
+            text-align: left;
+            line-height: 27px;
+            font-weight: bold;
+            position: absolute;
+            z-index: 2001;
+        }
+    </style>
+</head>
+<body>
+<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+    <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <p style="margin-bottom: 15px;">
+            <font color="#FF0000">注1：上传的所有图片放入同一个文件夹中，选择该文件夹点击提交即可</font>
+        </p>
+
+        <p style="margin-bottom: 15px;">
+            <font color="#FF0000">注2：如果浏览器不支持选择文件夹，请使用谷歌浏览器</font>
+        </p>
+
+        <p style="margin-bottom: 15px;">
+            <font color="#FF0000">注3：提交完成后系统将会把解析结果以邮件的方式发送至您填写的邮箱</font>
+        </p>
+
+        <form id="myform" action="getUrl" enctype="multipart/form-data" method="post">
+            选择上传的文件夹：<input type="hidden" name="type" value="1"/>
+            <input style="margin-top: 10px" id="dir" type="file" name="file" multiple="multiple" webkitdirectory
+                   mozdirectory/><br>
+            邮箱：<input style="margin-top: 15px;" id="email" type="text" name="toAddress"/><br/>
+            <span id="filemsg" style="display: none"><font color="#FF0000" id="errmsg"></font></span><br/>
+            <input onclick="submitForm()" style="margin-top: 15px" id="uploadDir" type="button" value="提交">
+        </form>
+        <span id="data">
+
+        </span>
+    </div>
+</div>
+<div id="background" class="background" style="display: none; "></div>
+<div id="progressBar" class="progressBar" style="display: none; ">上传中，请稍等...</div>
+
+<!--<script th:src="@{/js/jquery-1.11.2.min.js}"></script>-->
+<script src="/VerifySystem/js/jquery-1.11.2.min.js"></script>
+<script th:src="@{/js/jquery-form.js}"></script>
+<script type="text/javascript">
+    function submitForm() {
+        var fileFlag = false;
+        $("input[name='file']").each(function () {
+            if ($(this).val() != "") {
+                fileFlag = true;
+            }
+        });
+        if (!fileFlag) {
+            $("#errmsg").text("请选择文件");
+            $("#filemsg").show();
+        } else {
+            var files = $('#dir')[0].files; //获得文件大小；
+            var fileSize = 0;
+            for (var i = 0; i < files.length; i++) {
+                fileSize += files[i].size;
+            }
+            console.log(fileSize);
+            fileSize = (Math.round(fileSize / (1024 * 1024))).toString();
+            console.log(fileSize);
+            if (fileSize > 100) {
+                $("#errmsg").text("错误！请上传不超过100M的文件");
+                $("#filemsg").show();
+                // $('#filemsg').show().text('错误！请上传不超过10M的文件');
+                return;
+            }
+
+            var email = $("#email").val();
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+            if (!email || !reg.test(email)) {
+                $("#errmsg").text("请填写正确的邮箱");
+                $("#filemsg").show();
+                return;
+            }
+
+            // $("#myform").submit();
+
+
+            // $("#myform").ajaxSubmit();
+            // alert("文件已上传，稍后将会邮件通知您结果")
+
+            var ajaxbg = $("#background,#progressBar");
+            ajaxbg.show();
+            $("#filemsg").hide();
+            $("#myform").ajaxSubmit(function (data) {
+                    ajaxbg.hide();
+                    alert(data);
+                    // $("#data").html(data);
+                }
+            );
+        }
+    }
+
+</script>
+</body>
+</html>

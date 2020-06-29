@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>鉴权结果</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" th:action="@{/index}" method="post">
+			
+					<span class="login100-form-title p-b-49">鉴 权 结 果</span>
+					
+					<div class="text-right p-t-1 p-b-2">
+						<span th:if="${session.verifyUser}"><span th:text="${session.verifyUser} + ',您好!'"></span>
+						<span th:if="${session.verifyUser}"><a th:href="@{/logout}" style="color:blue">登出</a></span>
+						</span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" name="accName" th:placeholder="${resepVerifyBean.accName}" disabled/>
+						<span class="focus-input100">姓名</span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" name="phoneNo" th:placeholder="${resepVerifyBean.phoneNo}" disabled/>
+						<span class="focus-input100">手机</span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" name="accNo" th:placeholder="${resepVerifyBean.accNo}" disabled/>
+						<span class="focus-input100" >银行卡</span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" name="certNo" th:placeholder="${resepVerifyBean.certNo}" disabled/>
+						<span class="focus-input100">身份证</span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" name="verifyType" th:placeholder="${resepVerifyBean.verifyType}" disabled/>
+						<span class="focus-input100">鉴权类型</span>
+					</div>
+
+					<div class="txt1 text-center p-t-20 p-b-10">
+						<div class="wrap-login100-form-span">
+							<span th:text="${resepVerifyBean.verifyMsg}"></span>
+						</div>
+					</div>
+					
+					<div class="txt1 text-left p-t-20 p-b-10">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" onclick="history.go(-1)">返 回</button>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">首 页</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

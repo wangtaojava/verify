@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>在线鉴权</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+
+	<!--<link rel="stylesheet" type="text/css" href="/VerifySystem/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/css/main.css">-->
+</head>
+
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" th:action="@{/verify}" method="post">
+				<!--<form class="login100-form validate-form" action="/verify" method="post">-->
+
+					<span class="login100-form-title p-b-49">在 线 鉴 权</span>
+					
+					<div class="text-right p-t-1 p-b-2">
+						<span th:if="${session.verifyUser} == null"><a th:href="@{/login}" class="txt2">登录</a>/<a th:href="@{/register}" class="txt2">注册</a></span>
+						<!--<span th:if="${session.verifyUser} == null"><a href="/VerifySystem/login" class="txt2">登录</a>/<a href="/VerifySystem/register" class="txt2">注册</a></span>-->
+						<span th:if="${session.verifyUser}"><span th:text="${session.verifyUser} + ',您好!'"></span>
+						<span th:if="${session.verifyUser}"><a th:href="@{/logout}" style="color:blue">登出</a></span>
+						<!--<span th:if="${session.verifyUser}"><a href="/VerifySystem/logout" style="color:blue">登出</a></span>-->
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="请输入姓名/企业名称">
+						<input class="input100" type="text" name="accName" placeholder="请输入姓名/企业名称" autocomplete="off" autofocus="autofocus">
+						<span class="focus-input100">姓名</span>
+					</div>
+
+					<div class="wrap-input100" data-validate="请输入手机号">
+						<input class="input100" type="text" name="phoneNo" placeholder="请输入手机号" autocomplete="off">
+						<span class="focus-input100">手机</span>
+					</div>
+
+					<div class="wrap-input100" data-validate="请输入银行卡卡号">
+						<input class="input100" type="text" name="accNo" placeholder="请输入银行卡卡号" autocomplete="off">
+						<span class="focus-input100" >银行卡</span>
+					</div>
+
+					<div class="wrap-input100" data-validate="请输入身份证号/企业社会信用代码">
+						<input class="input100" type="text" name="certNo" placeholder="请输入身份证号/企业社会信用代码" autocomplete="off" >
+						<span class="focus-input100">身份证</span>
+					</div>
+
+					<div class="wrap-input100 validate-select">
+						<span class="focus-input10" >鉴权类型</span>
+					 	<select name="verifyType" class="input100" >
+                            <option selected>银行卡信息要素鉴权</option>
+                            <option>通讯运营商信息要素鉴权</option>
+                            <option>公安信息要素鉴权</option>
+                            <option>企业信息要素鉴权</option>
+					 	</select>
+					</div>
+
+					<div class="txt1 text-center p-t-20 p-b-10">
+						<div class="wrap-login100-form-span">
+							<span th:text="${verifyMsg}"  style="color:#F00"></span>
+						</div>
+					</div>
+					
+					<div class="txt1 text-center p-t-20 p-b-10">
+						<div class="wrap-login100-form-span">
+							<span th:text="${loginMsg}" style="color:#F00"></span>
+						</div>
+					</div>
+					
+					<div class="txt1 text-left p-t-20 p-b-10">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" type="reset">重 置</button>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">提 交</button>
+						</div>
+					</div>
+				</form>
+				<div class="container-login100-form-btn" style="margin-top: 15px;">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<a th:href="other"><button class="login100-form-btn">其他功能</button></a>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+
+	<!--<script src="/VerifySystem/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/VerifySystem/js/main.js"></script>
+	<script src="/VerifySystem/js/jquery-1.11.2.min.js"></script>-->
+</body>
+
+</html>

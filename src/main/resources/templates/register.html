@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>注册</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" th:action="@{/register}" method="post">
+					<span class="login100-form-title p-b-49">注 册</span>
+
+					<div class="wrap-input100 validate-input" data-validate="请输入用户名">
+						<span class="label-input100">用户名</span>
+						<input class="input100" type="text" name="userName" placeholder="请输入用户名" autocomplete="off" autofocus="autofocus">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="请输入密码">
+						<span class="label-input100">密码</span>
+						<input class="input100" type="password" name="passWord" id="pwd1" placeholder="请输入密码"  >
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate="请确认密码" >
+						<span class="label-input100">确认密码</span>
+						<input class="input100" type="password" name="passWord2" id="pwd2" placeholder="确认密码" onfocus="remTelAtt()" onblur="validate()">
+						<span id="tishi"></span>
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate="请输入手机号">
+						<span class="label-input100">手机号</span>
+						<input class="input100" type="text" name="userPhone" id="telphone" placeholder="请输入手机号" onfocus="remTelAtt()" onblur="verifyTel()">
+						<span class="focus-input100" data-symbol="&#xf202"></span>
+						<span id="tishi_1"></span>
+					</div>
+
+					<div class="text-right p-t-8 p-b-31">
+						<a th:href="@{/login}">直接登录</a>
+					</div>
+					
+					<div class="txt1 text-center p-t-10 p-b-10">
+						<div class="wrap-login100-form-span">
+							<span th:text="${registerMsg}" style="color:#F00"></span>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" id="zhuce">注册</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/hf.js}"></script>
+</body>
+</html>

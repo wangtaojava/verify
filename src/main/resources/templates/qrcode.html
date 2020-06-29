@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>立招二维码清除缓存</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/company.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/param.css}">
+    <style type="text/css">
+        .background {
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            filter: alpha(opacity=40);
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+        }
+
+        .progressBar {
+            border: solid 2px #86A5AD;
+            background: white url('images/loading.gif') no-repeat 10px 10px;
+        }
+
+        .progressBar {
+            display: block;
+            width: 200px;
+            height: 50px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -74px;
+            margin-top: -14px;
+            padding: 10px 10px 10px 50px;
+            text-align: left;
+            line-height: 27px;
+            font-weight: bold;
+            position: absolute;
+            z-index: 2001;
+        }
+    </style>
+</head>
+<body>
+<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+    <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <H2 style="margin-bottom: 45px;margin-top: -25px;">
+            上传立招二维码图片清除缓存
+        </H2>
+        <form id="qrcodeForm" action="resolve" enctype="multipart/form-data" method="post">
+            选择立招二维码:<input style="margin-top: 15px" id="qrcode" type="file" name="qrcodeFile"/><br>
+            <span id="qrcodemsg" style="display: none"><font color="#FF0000">请选择二维码</font></span><br/>
+            <input onclick="submitExcelForm()" style="margin-top: 15px" id="excel_uploadDir" type="button" value="提交">
+        </form>
+    </div>
+</div>
+<div id="background" class="background" style="display: none; "></div>
+<div id="progressBar" class="progressBar" style="display: none; ">上传中，请稍等...</div>
+
+<script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script th:src="@{/js/jquery-form.js}"></script>
+<script type="text/javascript">
+    function submitExcelForm() {
+        var fileFlag = false;
+        $("input[name='qrcodeFile']").each(function () {
+            if ($(this).val() != "") {
+                fileFlag = true;
+            }
+        });
+        if (!fileFlag) {
+            $("#qrcodemsg").show();
+        } else {
+            var ajaxbg = $("#background,#progressBar");
+            ajaxbg.show();
+            $("#qrcodemsg").hide();
+            $("#qrcodeForm").ajaxSubmit(function (data) {
+                    ajaxbg.hide();
+                    alert(data);
+                    // setTimeout(function(){
+                    //
+                    // },500);
+
+                }
+            );
+        }
+    }
+
+    function showMask() {
+        $("#mask").css("height", $(document).height());
+        $("#mask").css("width", $(document).width());
+        $("#mask").show();
+    }
+
+    //隐藏遮罩层
+    function hideMask() {
+        $("#mask").hide();
+    }
+</script>
+</body>
+</html>

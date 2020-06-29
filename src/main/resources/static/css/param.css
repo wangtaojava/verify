@@ -1,0 +1,9 @@
+.class1{width:170px;display:inline-block;margin-bottom: 30px;}
+.class2{width:70px;display:inline-block;margin-bottom: 10px;}
+.class3{
+	border: 1px solid black;
+	width: 300px;
+}
+#myform{
+	margin-bottom: 30px;
+}

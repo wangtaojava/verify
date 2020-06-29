@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>获取企业信息</title>
+	<!--<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/company.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/param.css}">-->
+
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/css/company.css">
+	<link rel="stylesheet" type="text/css" href="/VerifySystem/css/param.css">
+</head>
+<body>
+	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+			<H1 style="margin-bottom: 30px;">
+				以下两种方式请选择其中一种
+			</H1>
+			<H5 style="margin-bottom: 15px;">
+				1.上传营业执照ocr识别获取企业信息
+			</H5>
+			<p style="margin-bottom: 15px;">
+				<font color="#FF0000">注1：上传的所有图片放入同一个文件夹中，选择该文件夹点击提交即可</font>
+			</p>
+
+			<p style="margin-bottom: 15px;">
+				<font color="#FF0000">注2：如果浏览器不支持选择文件夹，请使用谷歌浏览器</font>
+			</p>
+			<p style="margin-bottom: 15px;">
+				<font color="#FF0000">注3：提交完成后系统将会把企业信息以邮件的方式发送至您填写的邮箱</font>
+			</p>
+			<form id="myform" action="fileUpload" enctype="multipart/form-data" method="post">
+				选择上传的文件夹：<input type="hidden" name="type" value="1"/>
+				<input style="margin-top: 10px" id="dir" type="file" name="file" multiple="multiple" webkitdirectory mozdirectory/><span id="filemsg" style="display: none"><font color="#FF0000">请选择文件</font></span><br/>
+				邮箱：<input style="margin-top: 15px;" id="email" type="text" name="toAddress" /><span id="msg" style="display: none"><font color="#FF0000">请填写正确的邮箱</font></span><br/>
+				<input onclick="submitForm()" style="margin-top: 15px" id="uploadDir" type="button" value="提交">
+			</form>
+			<br>
+			<br>
+			<H5 style="margin-bottom: 15px;">
+				2.上传excel获取企业信息
+			</H5>
+			<p style="margin-bottom: 15px;">
+				<font color="#FF0000">
+					<span>注1：上传的excel格式：共三列，三列中每行至少填写一项，第一列为：企业注册</span>
+					<span style="margin-left: 7%;">号，第二列为：企业社会信用代码，第三列为：企业名称</span>
+				</font>
+			</p>
+			<p style="margin-bottom: 15px;">
+				<font color="#FF0000">注2：从左到右优先级递减，即三列全部填写则只会以第一列查询</font>
+			</p>
+			<p style="">
+				<font color="#FF0000">注3：<a href="company.xls"><span><font color="blue">模板下载</font></span></a></font>
+			</p>
+			<form id="excelForm" action="excelUpload" enctype="multipart/form-data" method="post">
+				选择上传的excel:<input style="margin-top: 15px" id="excel" type="file" name="excel_file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" /><span id="excel_filemsg" style="display: none"><font color="#FF0000">请选择excel文件</font></span><br/>
+				邮箱：<input style="margin-top: 15px" id="excel_email" type="text" name="toAddress" /><span id="excel_msg" style="display: none"><font color="#FF0000">请填写正确的邮箱</font></span><br/>
+				<input onclick="submitExcelForm()" style="margin-top: 15px" id="excel_uploadDir" type="button" value="提交">
+			</form>
+		</div>
+	</div>
+
+<!--<script th:src="@{/js/jquery-1.11.2.min.js}"></script>-->
+<script src="/VerifySystem/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+	function submitForm(){
+		var email = $("#email").val();
+		var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+		var fileFlag = false; 
+		$("input[name='file']").each(function(){
+			if($(this).val()!="") {
+				fileFlag = true; 
+			} 
+		});
+		if(!fileFlag){
+			$("#filemsg").show();
+		}else{
+			if(!email || !reg.test(email)){
+				$("#msg").show();
+			}else{
+				$("#myform").submit();
+			}
+		}
+	}
+	
+	function submitExcelForm(){
+		var email = $("#excel_email").val();
+		var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+		var fileFlag = false; 
+		$("input[name='excel_file']").each(function(){
+			if($(this).val()!="") {
+				fileFlag = true; 
+			} 
+		});
+		if(!fileFlag){
+			$("#excel_filemsg").show();
+		}else{
+			if(!email || !reg.test(email)){
+				$("#excel_msg").show();
+			}else{
+				$("#excelForm").submit();
+			}
+		}
+	}
+</script>
+</body>
+</html>

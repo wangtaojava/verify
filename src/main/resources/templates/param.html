@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>获取测试参数</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/param.css}">
+</head>
+
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<span class="login100-form-title p-b-49">获取测试参数</span>
+				<span>选择功能：</span><input type="checkbox" id="selectAll">全选<br>
+				<form id="myform" class="login100-form validate-form" th:action="@{/verify}" method="post">
+					<span class="class1"><input name="param" type="checkbox" value="1">银行卡信息鉴权</span>
+					<span class="class1"><input name="param" type="checkbox" value="2">运营商信息鉴权</span>
+					<span class="class1"><input name="param" type="checkbox" value="3">公安信息鉴权</span><br>
+					<span class="class1"><input name="param" type="checkbox" value="4">风险信息鉴权</span>
+					<span class="class1"><input name="param" type="checkbox" value="5">OCR-银行卡</span>
+					<span class="class1"><input name="param" type="checkbox" value="6">OCR-身份证</span><br>
+					<span class="class1"><input name="param" type="checkbox" value="7">OCR-营业执照</span>
+					<span class="class1"><input name="param" type="checkbox" value="8">OCR-人证对比</span>
+					<span class="class1"><input name="param" type="checkbox" value="9">OCR-结果查询</span><br>
+					<span class="class1"><input name="param" type="checkbox" value="10">企业信息查询</span>
+					<span class="class1"><input name="param" type="checkbox" value="11">企业信息鉴权</span>
+					<span class="class1"><input name="param" type="checkbox" value="12">短信网关</span><br>
+					<span class="class1"><input name="param" type="checkbox" value="13">电子协议</span><br>
+					<!-- <span class="class1"><input name="param" type="checkbox" value="14">电子协议-短信验证码</span>
+					<span class="class1"><input name="param" type="checkbox" value="15">电子协议-合同下载</span> -->
+					<span class="class2">商户名：</span><input placeholder="请输入商户名" id="mername" class="class3" type="text"><br>
+					<span class="class2">邮箱：</span><input placeholder="请输入邮箱" id="email" class="class3" type="text"><br>
+				</form>
+				<div>
+					<span>请求地址:https://notify-test.eycard.cn:7443/EasypayMPSystem/~</span><br>
+					<span>渠道编号:<span id="channelid"></span></span><br>
+					<span>商户编号:<span id="merid"></span></span ><br>
+					<span>终端编号:<span id="termid"></span></span><br>
+					<span>渠道密钥:<span id="channelkey"></span></span><br>
+					<!-- <span>签名密钥:<span id="signkey"></span></span> -->
+				</div>
+				<div class="container-login100-form-btn" style="margin-top: 15px;">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" onclick="getParam()">获取参数</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<!-- <script th:src="@{/js/param.js}"></script> -->
+	<script>document.write('<script src="js/param.js?t=' + new Date().getTime() + '"><\/script>')</script>
+</body>
+
+</html>

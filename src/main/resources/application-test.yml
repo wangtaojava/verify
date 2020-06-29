@@ -1,0 +1,60 @@
+server:
+  port: 8816
+  servlet:
+    context-path: /VerifySystem
+  tomcat:
+    uri-encoding: UTF-8
+#    basedir: /home/llin/VerifySystem_8816/uploadFile
+#    basedir: C:/Users//wt/Desktop/file
+logging:
+  config: classpath:logback-spring-test.xml
+  level:
+    com.alibaba.dubbo.monitor: error
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  application:
+    name: VerifySystem
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    mode: HTML5
+  datasource:
+    url: jdbc:oracle:thin:@192.168.5.70:1521:pep
+    username: baseinfo
+    password: bS_I6$
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+    platform: oracle
+    initialSize: 10
+    minIdle: 10
+    maxActive: 50
+    maxWait: 5000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 1 from dual
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 50
+    filters: stat,wall
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  redis:
+    jedis:
+      pool:
+        max-active: 600
+        max-idle: 10
+        max-wait: -1
+    sentinel:
+      master: mymaster
+      nodes:
+      - 192.168.5.191:10000
+      - 192.168.5.191:10001
+      - 192.168.5.177:10002

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>在线鉴权</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<div class="container-login100-form-btn" style="margin-top: 15px;">
+						<div class="wrap-login100-form-btn" style="margin-bottom: 30px;">
+							<div class="login100-form-bgbtn"></div>
+							<a th:href="param"><button class="login100-form-btn">获取鉴权参数</button></a>
+						</div>
+						<div class="wrap-login100-form-btn" style="margin-bottom: 30px;">
+							<div class="login100-form-bgbtn"></div>
+							<a th:href="company"><button class="login100-form-btn">企业信息查询</button></a>
+						</div>
+						<div class="wrap-login100-form-btn" style="margin-bottom: 30px;">
+							<div class="login100-form-bgbtn"></div>
+							<a th:href="qrcode"><button class="login100-form-btn">立招码清除缓存</button></a>
+						</div>
+						<div class="wrap-login100-form-btn" style="margin-bottom: 30px;">
+							<div class="login100-form-bgbtn"></div>
+							<a th:href="originUrl"><button class="login100-form-btn">解析立招码牌原地址</button></a>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

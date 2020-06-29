@@ -1,0 +1,51 @@
+create table V_USER
+(
+  v_user_id            VARCHAR2(50) not null,
+  v_user_permissions  CHAR(1) default '1' not null,
+  v_user_login_status  CHAR(1) default '0' not null,
+  v_user_login_ip      VARCHAR2(50) not null,
+  v_user_creation_time CHAR(14),
+  CONSTRAINT V_USER_pk PRIMARY KEY (v_user_id)
+)
+
+comment on column V_USER.v_user_permissions is '初始：1；普通用户：1；管理员：0';
+comment on column V_USER.v_user_login_status is '登录状态';
+comment on column V_USER.v_user_creation_time is '用户创建时间';
+
+
+
+--用户信息表
+create table V_USER_INFO
+(
+  v_user_id                     VARCHAR2(50) not null,
+  v_user_login_pwd              VARCHAR2(20) not null,
+  v_user_status                 CHAR(1)  default '0' not null,
+  v_user_name                   VARCHAR2(20) not null,
+  v_user_tel                    VARCHAR2(11),
+  v_user_info_modification_time CHAR(14),
+  CONSTRAINT V_USER_INFO_pk PRIMARY KEY (v_user_id)
+)
+
+
+comment on column V_USER_INFO.v_user_status is '用户状态(1：可用)';
+
+
+--用户请求鉴权流水表
+create table V_AUTHENTICATION_PIPELINE
+(
+  v_authentication_opar_id      VARCHAR2(20) not null,
+  v_authentication_function_id  char(3) not null,
+  v_authentication_requst_pline VARCHAR2(50) not null,
+  v_authentication_database     VARCHAR2(1000)not null
+)
+
+comment on column V_AUTHENTICATION_PIPELINE.v_authentication_opar_id is '操作用户';
+comment on column V_AUTHENTICATION_PIPELINE.v_authentication_function_id is '操作鉴权类型';
+comment on column V_AUTHENTICATION_PIPELINE.v_authentication_requst_pline is '鉴权流水';
+
+--select v_verifytrace_seq.nextval as vuserid from dual
+create sequence v_verifytrace_seq minvalue 1 start with 1 increment by 1 nocache;用于请求流水自增序列
+
+
+
+
