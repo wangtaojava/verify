@@ -38,9 +38,9 @@ public class ParamDao {
 	public void insert_wtp_verify_mer_info(String channelid, String channelkey, String keyinfo, String merid,
 			String termid, String changedt, String username, String mername) throws SystemException {
 		mername = mername + "-" + username;
-		String sql = "insert into wtp_verify_mer_info (channel_id,is_in_use,channel_key,key_info,mer_id,termid,mer_name,many_channel,changedt,default_channel,requestip) values ('"
+		String sql = "insert into wtp_verify_mer_info (channel_id,is_in_use,channel_key,key_info,mer_id,termid,mer_name,many_channel,changedt,requestip) values ('"
 				+ channelid + "','T','" + channelkey + "','" + keyinfo + "','" + merid + "','" + termid + "','"
-				+ mername + "','','" + changedt + "','','')";
+				+ mername + "','','" + changedt + "','')";
 		try {
 			int resultInt = jdbcTemplate.update(sql);
 			if (resultInt != 1) {
