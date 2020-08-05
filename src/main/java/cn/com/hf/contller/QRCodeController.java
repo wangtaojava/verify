@@ -96,7 +96,7 @@ public class QRCodeController {
                 return "非立招二维码";
             }
             //获取参数
-            String param = str.substring(str.indexOf("?") + 1, str.length() - 1);
+            String param = str.substring(str.indexOf("?") + 1, str.length());
             logger.info("参数：" + param);
             Map<String, String> paramMap = QRCodeUtil.string2Map(param);
             //清除缓存地址
