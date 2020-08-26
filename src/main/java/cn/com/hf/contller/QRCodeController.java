@@ -213,7 +213,7 @@ public class QRCodeController {
                 style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 // 添加excel title
                 HSSFCell cell1 = null;
-                String[] excelnames1 = {"图片名称", "解析地址"};
+                String[] excelnames1 = {"图片名称", "解析地址", "文件类型"};
                 for (int i = 0; i < excelnames1.length; i++) {
                     cell1 = row1.createCell(i);
                     cell1.setCellValue(excelnames1[i]);
@@ -221,6 +221,7 @@ public class QRCodeController {
                 }
                 sheet1.setColumnWidth(0, 20 * 256);
                 sheet1.setColumnWidth(1, 40 * 256);
+                sheet1.setColumnWidth(2, 40 * 256);
 
                 String str = "";
                 JSONArray json = new JSONArray();
@@ -237,9 +238,11 @@ public class QRCodeController {
                         try {
                             String url = QRCodeUtil.getQrcode(f);
                             String name = f.getName().substring(0, f.getName().indexOf("."));
+                            String filetype = f.getName().substring(f.getName().lastIndexOf(".") + 1);
                             row.createCell(0).setCellValue(name);
                             row.createCell(1).setCellValue(url);
-                            str += "<span>" + name + ":" + url + "</span><br>";
+                            row.createCell(2).setCellValue(filetype);
+                            str += "<span>" + name + ":" + url + ":" + filetype + "</span><br>";
                             //解析结束删除文件
                         } catch (Exception e) {
                             logger.error(f.getName() + "解析错误");
