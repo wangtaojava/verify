@@ -27,8 +27,8 @@ spring:
     mode: HTML5
   datasource:
     url: jdbc:oracle:thin:@192.168.5.70:1521:pep
-    username: baseinfo
-    password: bS_I6$
+    username: baseinfonew
+    password: abc1234
     driver-class-name: oracle.jdbc.driver.OracleDriver
     type: com.alibaba.druid.pool.DruidDataSource
     platform: oracle
