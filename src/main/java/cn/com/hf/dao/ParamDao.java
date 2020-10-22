@@ -211,6 +211,12 @@ public class ParamDao {
 //						.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "66")
 //						.replace("$tradetype$", "c");
 //				break;
+				case "14": //活体检测 1205
+					sql = sql.replace("$type$", "1205");
+					channelsql = channelsql.replace("$maintradetype$", "1205").replace("$nextmerid$", "ZW95V0000000001")
+							.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "95")
+							.replace("$tradetype$", "R");
+					break;
 			}
 			if (StringUtils.isNotBlank(sql)) {
 				sqllist.add(sql);
