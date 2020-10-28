@@ -1,5 +1,6 @@
 package cn.com.hf.contller.utils;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,7 @@ public class MailUtil {
 	private static String mypwd = "easypayjx18";
 //	private static String myqyEmail = "wangtao@easypay.com.cn";
 
-	public static void send(String toAddress, String path,String subject,String content) {
+	public static void send(String toAddress, String path,String subject,String content, String attachName) {
 		try {
 			logger.info("===邮件开始发送===");
 			/*
@@ -53,13 +54,15 @@ public class MailUtil {
 			MimeBodyPart attach = new MimeBodyPart(); // 附件
 
 			msgPart.addBodyPart(body);
-			msgPart.addBodyPart(attach);
 
 			// 设置正文内容
-			body.setContent("您好，您之前获取企业信息的结果已返回，企业信息excel文件已在附件中，请查收，无需回复！", "text/html;charset=utf-8");
+			body.setContent(content, "text/html;charset=utf-8");
 			// 设置附件内容
-			attach.setDataHandler(new DataHandler(new FileDataSource(path)));
-			attach.setFileName(MimeUtility.encodeText("企业信息.xls"));
+			if(StringUtils.isNotEmpty(path)){
+				msgPart.addBodyPart(attach);
+				attach.setDataHandler(new DataHandler(new FileDataSource(path)));
+				attach.setFileName(MimeUtility.encodeText(attachName));
+			}
 
 			message.saveChanges();
 			/*
@@ -77,7 +80,7 @@ public class MailUtil {
 
 	public static void main(String[] args) throws Exception {
 //		sendMail();
-		send("1392148563@qq.com", "C:\\Users\\pll\\Desktop\\company.xls","test","正文内容");
+		send("1392148563@qq.com", "","test","正文内容","附件名称");
 //		sendMail("wangtao@easypay.com.cn", "你好，这是一封测试邮件，无需回复。", "测试邮件");
 	}
 
