@@ -142,7 +142,7 @@ public class CompanyController {
                         wb.write(fout);
                         fout.flush();
                         fout.close();
-                        MailUtil.send(toAddress, path + "/" + fileName + "/companyInfo.xls", "ocr营业执照获取企业信息结果", "您好，您之前获取企业信息的结果已返回，企业信息excel文件已在附件中，请查收，无需回复！");
+                        MailUtil.send(toAddress, path + "/" + fileName + "/companyInfo.xls", "ocr营业执照获取企业信息结果", "您好，您之前获取企业信息的结果已返回，企业信息excel文件已在附件中，请查收，无需回复！","企业信息.xls");
                         File file = new File(path + "/" + fileName + "/companyInfo.xls");// 删除服务器的excel
                         if (file.exists()) {
                             file.delete();
@@ -504,7 +504,7 @@ public class CompanyController {
                     wb.write(fout);
                     fout.flush();
                     fout.close();
-                    MailUtil.send(toAddress, path + "/" + fileName + "/companyInfo.xls", "ocr营业执照获取企业信息结果", "您好，您之前获取企业信息的结果已返回，企业信息excel文件已在附件中，请查收，无需回复！");
+                    MailUtil.send(toAddress, path + "/" + fileName + "/companyInfo.xls", "ocr营业执照获取企业信息结果", "您好，您之前获取企业信息的结果已返回，企业信息excel文件已在附件中，请查收，无需回复！","企业信息.xls");
                     File file = new File(path + "/" + fileName + "/companyInfo.xls");// 删除服务器的excel
                     if (file.exists()) {
                         file.delete();

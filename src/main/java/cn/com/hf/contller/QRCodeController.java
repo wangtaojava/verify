@@ -259,7 +259,9 @@ public class QRCodeController {
                     fout.close();
 
                     //发送邮件
-                    MailUtil.send(toAddress, path + "/" + fileName + "/payCodeUrl.xls", "立招二维码解析地址", "您好，您之前解析立招二维码的结果已返回，解析结果excel文件已在附件中，请查收，无需回复！");
+                    MailUtil.send(toAddress, path + "/" + fileName + "/payCodeUrl.xls",
+                            "立招二维码解析地址", "您好，您之前解析立招二维码的结果已返回，解析结果excel文件已在附件中，请查收，无需回复！",
+                            "二维码解析结果.xls");
 
                     File urlfile = new File(path + "/" + fileName + "/payCodeUrl.xls");// 删除服务器的excel
                     if (urlfile.exists()) {
