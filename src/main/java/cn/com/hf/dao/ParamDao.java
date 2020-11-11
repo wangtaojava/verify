@@ -127,19 +127,19 @@ public class ParamDao {
 			case "5":// OCR-银行卡
 				sql = sql.replace("$type$", "1201");
 				channelsql = channelsql.replace("$maintradetype$", "1201").replace("$nextmerid$", "ZW84R0000000001")
-						.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "84")
+						.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "76")
 						.replace("$tradetype$", "R");
 				break;
 			case "6":// OCR-身份证
 				sql = sql.replace("$type$", "1202");
 				channelsql = channelsql.replace("$maintradetype$", "1202").replace("$nextmerid$", "ZW84R0000000001")
-						.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "84")
+						.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "76")
 						.replace("$tradetype$", "R");
 				break;
 			case "7":// OCR-营业执照
 				sql = sql.replace("$type$", "1204");
 				channelsql = channelsql.replace("$maintradetype$", "1204").replace("$nextmerid$", "ZW84R0000000001")
-						.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "84")
+						.replace("$nexttermid$", "00000001").replace("$nextchanneltype$", "76")
 						.replace("$tradetype$", "R");
 				break;
 			case "8":// OCR-人证对比
